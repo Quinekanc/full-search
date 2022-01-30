@@ -1,4 +1,5 @@
 import math
+import requests
 
 
 def lonlat_distance(a, b):
@@ -15,3 +16,21 @@ def lonlat_distance(a, b):
     distance = math.sqrt(dx * dx + dy * dy)
 
     return distance
+
+
+def find_obj(obj):
+    toponym_to_find = " ".join(obj)
+
+    geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
+
+    geocoder_params = {
+        "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+        "geocode": toponym_to_find,
+        "format": "json"}
+
+    response_1 = requests.get(geocoder_api_server, params=geocoder_params)
+
+    if not response_1:
+        raise (Exception('Неправильный ввод'))
+
+    return response_1
